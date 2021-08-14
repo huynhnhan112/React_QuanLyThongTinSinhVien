@@ -14,6 +14,12 @@ const stateDefault = {
             hoTen: 'Nguyễn Văn B',
             soDienThoai: '093822232232',
             email: 'nguyenvanb@gmail.com'
+        },
+        {
+            maSV: '3',
+            hoTen: 'Nguyễn Văn C',
+            soDienThoai: '093812312312',
+            email: 'nguyenvanc@gmail.com'
         }
     ],
 

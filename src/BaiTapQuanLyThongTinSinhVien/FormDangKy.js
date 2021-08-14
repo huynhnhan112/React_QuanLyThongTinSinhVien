@@ -25,24 +25,17 @@ class FormDangKy extends Component {
 
         let attrValue = '';
         let attrNumber = '';
-        let attrLetter = '';
         let minLength = 4;
         let maxLength = 6;
         let minPhoneNumber = 10;
         let maxPhoneNumber = 12;
         let regexEmail;
         let regexNumber;
-        let regexletter;
         
 
         if(event.target.getAttribute('typeEmail')){
             attrValue = event.target.getAttribute('typeEmail');
             regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        }
-
-        if(event.target.getAttribute('typeLetter')){
-            attrLetter = event.target.getAttribute('typeLetter');
-            regexletter = /^[A-Z a-z]+$/;
         }
 
         if(event.target.getAttribute('typeNumber')){
@@ -70,12 +63,10 @@ class FormDangKy extends Component {
                     messageErrors = name + ' phải là số !'
                 }
             }
-        }
 
-        // Nếu là tên
-        if(regexletter){
-            if(attrLetter === 'name'){
-                if(!regexletter.test(value)){
+            // Nếu là tên
+            if(attrNumber === 'name'){
+                if(regexNumber.test(value)){
                     messageErrors = name + ' phải là ký tự !'
                 }
             }
@@ -173,7 +164,7 @@ class FormDangKy extends Component {
                         <div className="col-6">
                             <div className="form-group">
                                 <p>Họ tên</p>
-                                <input typeLetter="name" value={hoTen} className="form-control" name="hoTen"  
+                                <input typeNumber="name" value={hoTen} className="form-control" name="hoTen"  
                                 onChange={this.handleChangeInput} />
                                 <p className="text-danger">{this.props.sinhVien.errors.hoTen}</p>
                             </div>
