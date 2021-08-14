@@ -3,9 +3,26 @@ import { connect } from 'react-redux'
 
 class TableDanhSachSinhVien extends Component {
 
+    state = {
+        search: ''
+    }
+
+    updateSearch = (event) => {
+        this.setState({
+            search: event.target.value.substr(0,20)
+        });
+    }
 
     render() {
+
         let { maSV, hoTen, soDienThoai, email } = this.props.mangSinhVien;
+
+        // Tìm kiếm thông tin sinh viên dựa trên tên sinh viên
+        let filter = this.props.mangSinhVien.filter((sv)=>{
+            return sv.hoTen.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+        });
+
+
         return (
             <div className="mt-5 text-left">
                 <table className="table table-hover">
@@ -16,14 +33,14 @@ class TableDanhSachSinhVien extends Component {
                             <th>Số điện thoại</th>
                             <th>Email</th>
                             <th>
-                                {/* <button style={{ fontSize: '25px', borderRadius: '10px' }}>
-                                    <i className="fa fa-search"></i>
-                                </button> */}
+                                <input type="text" placeholder=" Tìm họ tên sinh viên" value={this.state.search}
+                                    style={{position:'relative',width:'300px',height:'40px',padding:'5px',border:'none'}}
+                                    onChange={this.updateSearch.bind(this)} />
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.mangSinhVien.map((sinhVien, index) => {
+                        {filter.map((sinhVien, index) => {
                             return <tr key={index}>
                                 <td>{sinhVien.maSV}</td>
                                 <td>{sinhVien.hoTen}</td>

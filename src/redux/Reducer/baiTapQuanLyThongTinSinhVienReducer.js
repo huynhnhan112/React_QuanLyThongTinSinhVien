@@ -79,11 +79,15 @@ export const baiTapQuanLyThongTinSinhVienReducer = (state = stateDefault, action
                 (sinhVien => sinhVien.maSV === action.sinhVienCapNhat.maSV);
             if (index !== -1) {
                 mangSinhVienCapNhat[index] = action.sinhVienCapNhat;
+                state.mangSinhVien = mangSinhVienCapNhat;
+            }else{
+                alert('Không tìm thấy sinh viên để cập nhật');
             }
 
-            state.mangSinhVien = mangSinhVienCapNhat;
             return { ...state }
         }
+
+
 
         default: return state;
     }

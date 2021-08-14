@@ -24,26 +24,77 @@ class FormDangKy extends Component {
         newValues[name] = value;
 
         let attrValue = '';
-        let regex;
+        let attrNumber = '';
+        let attrLetter = '';
+        let minLength = 4;
+        let maxLength = 6;
+        let minPhoneNumber = 10;
+        let maxPhoneNumber = 12;
+        let regexEmail;
+        let regexNumber;
+        let regexletter;
+        
+
         if(event.target.getAttribute('typeEmail')){
             attrValue = event.target.getAttribute('typeEmail');
-            regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        }
+
+        if(event.target.getAttribute('typeLetter')){
+            attrLetter = event.target.getAttribute('typeLetter');
+            regexletter = /^[A-Z a-z]+$/;
+        }
+
+        if(event.target.getAttribute('typeNumber')){
+            attrNumber = event.target.getAttribute('typeNumber');
+            regexNumber = /^[0-9]+$/;
         }
 
         let newErrors = {...this.props.sinhVien.errors}
         let messageErrors = '';
-        if(value.trim() === ''){
-            messageErrors = name + ' không được bỏ trống !'
+       
+        // Nếu là số
+        if(regexNumber){
+            if(attrNumber === 'numberId'){
+                if(value.length < minLength || value.length > maxLength){
+                    messageErrors = name + ` phải từ ${minLength} đến ${maxLength} ký tự !`
+                }
+            }
+            if(attrNumber === 'numberPhone'){
+                if(value.length < minPhoneNumber || value.length > maxPhoneNumber){
+                    messageErrors = name + ` phải từ ${minPhoneNumber} đến ${maxPhoneNumber} ký tự !`
+                }
+            }
+            if(attrNumber === 'numberPhone' || attrNumber === 'numberId'){
+                if(!regexNumber.test(value)){
+                    messageErrors = name + ' phải là số !'
+                }
+            }
+        }
+
+        // Nếu là tên
+        if(regexletter){
+            if(attrLetter === 'name'){
+                if(!regexletter.test(value)){
+                    messageErrors = name + ' phải là ký tự !'
+                }
+            }
         }
         
         // Nếu là email
-        if(regex){
+        if(regexEmail){
             if(attrValue === 'email'){
-                if(!regex.test(value)){
+                if(!regexEmail.test(value)){
                     messageErrors = name + ' phải đúng định dạng !';
                 }
             }
         }
+
+        // Kiểm tra bỏ trống
+        if(value.trim() === ''){
+            messageErrors = name + ' không được bỏ trống !'
+        }
+       
         
         newErrors[name] =  messageErrors;
 
@@ -108,13 +159,13 @@ class FormDangKy extends Component {
                         <div className="col-6">
                             <div className="form-group">
                                 <p>Mã SV</p>
-                                <input value={maSV} className="form-control" name="maSV" 
+                                <input typeNumber="numberId" value={maSV} className="form-control" name="maSV" 
                                 onChange={this.handleChangeInput} />
                                 <p className="text-danger">{this.props.sinhVien.errors.maSV}</p>
                             </div>
                             <div className="form-group">
                                 <p>Số điện thoại</p>
-                                <input value={soDienThoai} className="form-control" name="soDienThoai" 
+                                <input typeNumber="numberPhone" value={soDienThoai} className="form-control" name="soDienThoai" 
                                 onChange={this.handleChangeInput} />
                                 <p className="text-danger">{this.props.sinhVien.errors.soDienThoai}</p>
                             </div>
@@ -122,7 +173,7 @@ class FormDangKy extends Component {
                         <div className="col-6">
                             <div className="form-group">
                                 <p>Họ tên</p>
-                                <input value={hoTen} className="form-control" name="hoTen"  
+                                <input typeLetter="name" value={hoTen} className="form-control" name="hoTen"  
                                 onChange={this.handleChangeInput} />
                                 <p className="text-danger">{this.props.sinhVien.errors.hoTen}</p>
                             </div>
