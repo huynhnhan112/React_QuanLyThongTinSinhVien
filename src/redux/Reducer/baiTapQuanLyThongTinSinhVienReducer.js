@@ -4,19 +4,19 @@
 const stateDefault = {
     mangSinhVien: [
         {
-            maSV: '1',
+            maSV: '1001',
             hoTen: 'Nguyễn Văn A',
             soDienThoai: '093811111111',
             email: 'nguyenvana@gmail.com'
         },
         {
-            maSV: '2',
+            maSV: '1002',
             hoTen: 'Nguyễn Văn B',
             soDienThoai: '093822232232',
             email: 'nguyenvanb@gmail.com'
         },
         {
-            maSV: '3',
+            maSV: '1003',
             hoTen: 'Nguyễn Văn C',
             soDienThoai: '093812312312',
             email: 'nguyenvanc@gmail.com'
@@ -25,7 +25,7 @@ const stateDefault = {
 
     sinhVienChinhSua:
     {
-        maSV: '1',
+        maSV: '1001',
         hoTen: 'Nguyễn Văn A',
         soDienThoai: '093811111111',
         email: 'nguyenvana@gmail.com'
@@ -86,8 +86,6 @@ export const baiTapQuanLyThongTinSinhVienReducer = (state = stateDefault, action
             if (index !== -1) {
                 mangSinhVienCapNhat[index] = action.sinhVienCapNhat;
                 state.mangSinhVien = mangSinhVienCapNhat;
-            }else{
-                alert('Không tìm thấy sinh viên để cập nhật');
             }
 
             return { ...state }
