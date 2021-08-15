@@ -92,7 +92,6 @@ export const baiTapQuanLyThongTinSinhVienReducer = (state = stateDefault, action
         }
 
 
-
         default: return state;
     }
 }
